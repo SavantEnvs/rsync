@@ -1,0 +1,11 @@
+# rsync as the sending end of a pull over the sample tree: stdin is the client's filter list and block checksums.
+project: savantenvs/rsync
+target: rsync_server_send
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/rsync_server_send/testsuite
+cmds:
+  # mayhem-lint: ok-image-path (the sample tree is only read)
+  - cmd: /mayhem/rsync-afl --server --sender -lHogDtpAXrcze.iLsfxCIvu . /mayhem/mayhem/rsync_server_send/tree/
+    afl: true
+    timeout: 10

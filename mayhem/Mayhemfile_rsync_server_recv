@@ -1,0 +1,12 @@
+# rsync as the receiving end of a push (what the daemon/ssh peer runs): stdin is the client's protocol stream. Seeds are real client streams.
+# The destination is a fresh per-exec scratch dir, pre-filled from the read-only mayhem/rsync_server_recv/basis (mayhem/recv_scratch.c),
+# so delta seeds find their basis files and no input's writes outlive it.
+project: savantenvs/rsync
+target: rsync_server_recv
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/rsync_server_recv/testsuite
+cmds:
+  - cmd: /mayhem/rsync-afl --server -lHogDtpAXrcze.iLsfxCIvu --delete . mayhem-scratch/
+    afl: true
+    timeout: 10

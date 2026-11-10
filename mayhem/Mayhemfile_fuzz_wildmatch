@@ -1,0 +1,9 @@
+# lib/wildmatch.c: rsync's include/exclude/filter pattern matcher. Input = pattern, NUL, text.
+project: savantenvs/rsync
+target: fuzz_wildmatch
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_wildmatch/testsuite
+cmds:
+  - cmd: /mayhem/fuzz_wildmatch
+    libfuzzer: true

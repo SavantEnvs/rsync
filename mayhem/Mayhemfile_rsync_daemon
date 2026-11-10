@@ -1,0 +1,11 @@
+# rsync daemon protocol (@RSYNCD handshake, module list, auth, then a transfer) served over stdin/stdout.
+project: savantenvs/rsync
+target: rsync_daemon
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/rsync_daemon/testsuite
+cmds:
+  # mayhem-lint: ok-image-path (the config and modules are only read)
+  - cmd: /mayhem/rsync-afl --server --daemon --config=/mayhem/mayhem/rsync_daemon/rsyncd.conf .
+    afl: true
+    timeout: 10
